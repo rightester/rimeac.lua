@@ -51,8 +51,17 @@ jobs:
       #      ./rimeac.lua.x86.7z
       #      ./rimeac.lua.x64.7z
 
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            .\rimeac.lua.x86.7z
+            .\rimeac.lua.x64.7z
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
+        if: ${{ github.repository == 'fxliang/rimeac.lua' && github.ref == 'refs/heads/master' }}
         with:
           if-no-files-found: error
           path: |
